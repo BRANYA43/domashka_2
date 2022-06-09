@@ -1,9 +1,11 @@
-from random import randint
+year = ''
 
-for i in range(100):
-    year = randint(0, 9999)
+while not year.isdigit():
+    number = input('Введіть рік: ')
 
-    if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
-        print(f'{year}р є високосним.')
-    else:
-        print(f'{year}р не є високосним.')
+year = int(year)
+
+if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
+    print(f'{year}р є високосним.')
+else:
+    print(f'{year}р не є високосним.')
