@@ -28,7 +28,7 @@ def get_position_on_track(distance: int, length_track: int):
     return position
 
 
-def get_input_nuber(message: str):
+def get_input_number(message: str):
     ret = ''
     while not ret.isdigit():
         ret = input(message)
@@ -42,8 +42,8 @@ def get_input_nuber(message: str):
     return int(ret)
 
 
-speed = get_input_nuber('Введіть швидкість (км/год): ')
-time = get_input_nuber('Введіть час (год): ')
+speed = get_input_number('Введіть швидкість (км/год): ')
+time = get_input_number('Введіть час (год): ')
 distance = get_distance(speed, time)
 position = get_position_on_track(distance, LENGTH_TRACK)
 
