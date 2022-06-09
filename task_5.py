@@ -1,6 +1,11 @@
 x = ''
 while not x.isdigit():
     x = input('Введіть число: ')
+    try:
+        if int(x) < 0:
+            break
+    except ValueError:
+        pass
 
 x = int(x)
 
