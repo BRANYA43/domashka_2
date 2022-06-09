@@ -1,3 +1,11 @@
+LENGTH_TRACK = 100
+MAX_SPEED = 25
+speed = 0
+time = 0
+
+message = ''
+
+
 def get_distance(speed: int, time: int):
     distance = speed * time
     return distance
@@ -20,42 +28,44 @@ def get_position_on_track(distance: int, length_track: int):
     return position
 
 
-LENGTH_TRACK = 100
-MAX_SPEED = 25
-speed = ''
-time = ''
+def get_input_nuber(message: str):
+    ret = ''
+    while not ret.isdigit():
+        ret = input(message)
 
-message = ''
+        try:
+            if int(ret) < 0:
+                break
+        except ValueError:
+            pass
 
-while not speed.isdigit() or not time.isdigit():
-    if not speed.isdigit():
-        speed = input('Введіть швидкість руху(км): ')
-    if not time.isdigit():
-        time = input('Введіть час руху(год): ')
+    return int(ret)
 
-speed = int(speed)
-time = int(time)
+
+speed = get_input_nuber('Введіть швидкість (км/год): ')
+time = get_input_nuber('Введіть час (год): ')
 distance = get_distance(speed, time)
 position = get_position_on_track(distance, LENGTH_TRACK)
 
+print('*' * 20)
+
 if time == 0:
-    print('Васілій, не скільки не пройде за час 0год')
+    print('Васілій за 0 год проїде рівно 0 км.')
 elif time < 0:
-    print('Не буває відємного часу')
+    print("Не буває від'ємного часу.\n")
 
+elif time > 0:
+    if abs(speed) > MAX_SPEED:
+        message += 'Васілій або приймає допінг, або його батьком був Флеш.\n'
+        message += f'Його швидкість превищує {MAX_SPEED}(км), нормальну швидкість людей на велосипеді.\n'
 
-if abs(speed) > MAX_SPEED:
-    message += 'Васілій або приймае допінг, або його батьком буф Флеш.\n'
+    if speed == 0:
+        print(f'Васілій вирішив постояти {time} год.')
+    elif speed > 0:
+        message += 'Васілій їхав за годиниковою стрілкою.\n'
+    elif speed < 0:
+        message += 'Васілій їхав проти годиникової стрілки.\n'
 
-
-if speed == 0:
-    print('Васілій, не зможе зрушити з місця зі швидкістю 0км.')
-elif speed > 0:
-    message += 'Васілій їхав за годиниковою стрілкою.\n'
-elif speed < 0:
-    message += 'Васілій їхав проти годиникової стрілки.\n'
-
-
-if message != '':
-    message += f'Він проїхав {abs(distance)}км за {time}год та зупинився на позначці {position}км.'
-    print(message)
+    if message != '':
+        message += f'Він проїхав {abs(distance)}(км) та зупинився на позначці {position}(км).'
+        print(message)
